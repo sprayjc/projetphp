@@ -1,0 +1,36 @@
+version: "3"
+
+services:
+  webserver:
+    build: 
+      context: ./dockerfiles/webserver
+    ports:
+      - "80:80"
+      - "443:443"
+    links: 
+      - mariadb
+    volumes: 
+      - ./www:/var/www/html
+      - ./config/php/php.ini:/usr/local/etc/php/php.ini
+      - ./config/vhosts:/etc/apache2/sites-enabled
+      - ./logs/apache2:/var/log/apache2
+
+  mariadb:
+    image: mariadb:10.4
+    ports:
+      - "3306:3306"
+    volumes: 
+      - ./data/mysql:/var/lib/mysql
+      - ./logs/mysql:/var/log/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: digital2019
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:4.9
+    links:
+      - mariadb
+    environment:
+      PMA_HOST: mariadb
+      PMA_PORT: 3306
+    ports:
+      - '9000:80'
