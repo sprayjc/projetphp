@@ -1,5 +1,6 @@
 <?php
 require "classChien.php";
+require "class-maitre.php";
     class Database{
         private $connexion;
 
@@ -128,7 +129,55 @@ require "classChien.php";
                 //si ça c'est mal passé return false
                 return false;
             }
-        }  
+        }
+            //function pour mettre à jour un chien
+            public function updateChien($id, $nom, $age, $race){
+                // preparation de la requete
+                $pdoStatement = $this->connexion->prepare(
+                    "UPDATE Chiens
+                    SET nom = :nomChien, age = :ageChien, race = :raceChien
+                    WHERE id = :idChien"
+                );
+            
+                //execution de la requete et mapping des valeurs
+                    $pdoStatement->execute(
+                            array(
+                            "nomChien" => $nom,
+                            "ageChien" => $age,
+                            "raceChien" => $race,
+                            "idChien" =>$id
+                            ));    
+                  
+                  $errorCode = $pdoStatement->errorCode();
+                if(errorCode == 0){
+                // si c'a c'est bien passé renvoyer true
+                }else{
+                    //si ça c'est mal passé return false
+                    return false;
+                
+            } 
+        }
+                  //
+        
+     // creer la fonction getAllMasters
+
+     public function getAllMaitres(){
+        //je prepare la requete nouveau chien
+        $pdoStatement = $this->connexion->prepare(
+        "SELECT id, nom, telephone from Maitres"
+        //"SELECT * From Maitres"
+        );  
+         //j'execute la requete
+
+        $pdoStatement->execute();
+        //on stock en php le resultat de la requete
+        $listeMaitres = $pdoStatement->fetchAll(PDO::FETCH_CLASS, 'Maitre');
+        // je retourne la liste chiens
+
+        return $listeMaitres;   
+    
+    }   
+     //
                 
     }// fin database
 

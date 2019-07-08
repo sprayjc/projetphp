@@ -1,6 +1,6 @@
 <?php
     //Import des fichiers nécéssaires aux tests
-    require_once("database.php"); //(on a pas besoin d')
+    require_once("database.php"); //(on a pas besoin d'autres)
 
     /////
 
@@ -48,7 +48,24 @@
     //$chien = $database->getChienById(27);
     //affiche le retour sur une forme de ligne
    // echo "Nom : ". $chien->getNom().",  race :".$chien->getRace();
-    
+   // appele la function delete 
     echo "Supprimer chien :  ";
-    $database->deleteChien(20);
+   $resultat = $database->deleteChien(20);
+   if($resultat == true){
+       echo "Le chien a bien été supprimé";
+   }else{
+       echo "Problème, impossible de supprimer le chien";
+   }
+
+   
+   // appel de la funftion update
+   //$id, $nom, $age, $race
+   $resultat = $database->updateChien(5, "tutu", 5, "chiuaua");
+   if($resultat == true){
+       echo "Le chien a bien été mis à jour";
+   }else{
+       echo "Problème, impossible de mettre à jour le chien";
+   }
+
+
 ?>;

@@ -6,7 +6,7 @@ require_once ("database.php");
 $database = new Database();
 //recuperer l'id depuis l'url
 $id = $_GET["id"];
-var_dump($id);
+//var_dump($id);
 // recuperation de la liste d'un chien
 $chien = $database->getChienById($id);
 
@@ -25,6 +25,6 @@ $chien = $database->getChienById($id);
             <p>Nom : <?php echo $chien->getNomMaitre()?></p><br>
             <p>Tel : <?php echo $chien->getTelephone()?></p><br>   
         <br><br>
-            <a href="process-delete.php?id=<?php echo $chien->getid(); ?>">Delete</a>
+            <a class="buttonDelete" href="process-delete.php?id=<?php echo $chien->getid(); ?>">Delete</a>
     </body>
 </html>

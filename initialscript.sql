@@ -3,7 +3,7 @@ CREATE DATABASE AnnuaireToutou;
 USE AnnuaireToutou;
 --creer l'utilisateur
 CREATE USER "adminToutou"@"%" IDENTIFIED BY "Annu@ireToutou";
-GRANT ALL PRIVILEGES ON AnnuaireToutou.* TO "adminToutou"@"%";
+GRANT ALL PRIVILEGES ON AnnuaireToutou. TO "adminToutou"@"%";
 
 
 --creer la table Maitres en premier
@@ -45,3 +45,9 @@ FROM Chiens c
 INNER JOIN Maitres m
 ON c.id_maitre = m.id
 
+-- supprimer un chien de la base de données
+    DELETE FROM Chiens where id = 1
+    -- mettre à jour les informations d'un chien
+    UPDATE Chiens
+    SET NOM = "ZToto", age = 4, race = "Terrier"
+    Where id = 1
